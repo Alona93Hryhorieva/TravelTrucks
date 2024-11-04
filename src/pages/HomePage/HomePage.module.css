@@ -1,19 +1,47 @@
+.pageBackground {
+  background-image: url("/src/image/Picture-min.png"),
+    url("/src/image/Picture@2x-min.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  display: block;
+  height: 100%;
+}
+
 .container {
-  margin-top: 30px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  gap: 20px;
+  padding-top: 260px;
+  padding-left: 64px;
+  padding-bottom: 260px;
 }
 
 .title {
-  font-size: 50px;
-  color: rgb(68, 211, 211);
-  font-weight: 900;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 0.67em;
+  color: #f7f7f7;
 }
 
-.icon {
-  width: 45%;
-  height: auto;
+.text {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33em;
+  color: #f7f7f7;
+  margin-bottom: 40px;
+}
+.btn {
+  border-radius: 200px;
+  padding: 16px 60px;
+  min-width: 173px;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5em;
+  letter-spacing: -0.01em;
+  color: #fff;
+  background-color: #d84343;
+  border: none;
+  cursor: pointer;
 }

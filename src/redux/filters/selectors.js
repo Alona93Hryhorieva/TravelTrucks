@@ -1,2 +1,3 @@
-export const selectFilterName = (state) => state.filters.name;
-export const selectFilterNumber = (state) => state.filters.number;
+export const selectLocation = (state) => state.filters.location;
+export const selectVehicleType = (state) => state.filters.vehicleType;
+export const selectVehicleEquipment = (state) => state.filters.vehicleEquipment;

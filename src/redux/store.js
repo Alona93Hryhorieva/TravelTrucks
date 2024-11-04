@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
 import {
   persistStore,
-  persistReducer,
+  // persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -10,20 +10,20 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import { authReducer } from "./auth/slice";
-import { contactsReducer } from "./contacts/slice";
-import { filtersReducer } from "./filters/slice";
 
-const authPersistConfig = {
-  key: "auth",
-  storage,
-  whitelist: ["token"],
-};
+import campersReducer from "./campers/slice.js";
+import filtersReducer from "./filters/slice.js";
+
+// const authPersistConfig = {
+//   key: "auth",
+//   storage,
+//   whitelist: ["token"],
+// };
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authReducer),
-    contacts: contactsReducer, // contactsReducer тепер містить і modalReducer
+    // auth: persistReducer(authPersistConfig),
+    campers: campersReducer,
     filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) =>

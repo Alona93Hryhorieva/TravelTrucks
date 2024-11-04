@@ -1,0 +1,11 @@
+.text {
+  margin: 5px 15px 5px 15px;
+  font-size: 18px;
+  color: rgb(230, 222, 222);
+}
+.containerBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

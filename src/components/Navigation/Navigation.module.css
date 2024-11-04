@@ -1,0 +1,24 @@
+.link {
+  text-decoration: none;
+  display: inline-block;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 30px;
+  color: #36b1e6;
+  align-items: center;
+  text-decoration: none;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.link:hover {
+  color: #259ec0;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.isActive {
+  text-decoration: underline;
+  color: #d83619;
+}

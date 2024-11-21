@@ -1,55 +1,74 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCampers, getCamperById } from "../campers/operations.js";
-// import { logout } from "../auth/operations";
 
 const initialState = {
-  name: "campers",
-  items: [],
-  loading: false,
+  campers: [],
+  camper: {
+    name: "",
+    rating: 0,
+    reviews: [],
+    location: "",
+    price: 0,
+    gallery: [],
+    description: "",
+  },
+  isLoading: false,
   error: null,
-  selectedCamper: null,
-  //   modal: { isOpen: false, contactId: "66ae27f9c495ed6e25f3175e" },
+  filters: {
+    features: [],
+    form: "",
+    location: "",
+  },
+  favourites: [],
 };
 
-const contactsSlice = createSlice({
+const campersSlice = createSlice({
   name: "campers",
   initialState,
-  reducers: {
-    clearSelectedCamper: (state) => {
-      state.selectedCamper = null;
-    },
-  },
   extraReducers: (builder) => {
     builder
-      // Отримання списку кемперів
       .addCase(getCampers.pending, (state) => {
-        state.loading = true;
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(getCampers.fulfilled, (state, action) => {
-        state.loading = false;
-        state.campers = action.payload;
+        state.isLoading = false;
+        state.error = null;
+        // Якщо items відсутнє, встановіть порожній масив
+        state.campers = Array.isArray(action.payload.items)
+          ? action.payload.items
+          : [];
       })
       .addCase(getCampers.rejected, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.error = action.payload;
       })
-      // Отримання деталей окремого кемпера
       .addCase(getCamperById.pending, (state) => {
-        state.loading = true;
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(getCamperById.fulfilled, (state, action) => {
-        state.loading = false;
-        state.selectedCamper = action.payload;
+        state.isLoading = false;
+        state.error = null;
+        state.camper = action.payload;
       })
       .addCase(getCamperById.rejected, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.error = action.payload;
       });
   },
 });
 
-export const { clearSelectedCamper } = campersSlice.actions;
-
-export default campersSlice.reducer;
+// const camperReducer = (state = { campers: [], isLoading: false }, action) => {
+//   switch (action.type) {
+//     case "FETCH_CAMPERS_REQUEST":
+//       return { ...state, isLoading: true };
+//     case "FETCH_CAMPERS_SUCCESS":
+//       return { ...state, isLoading: false, campers: action.payload };
+//     case "FETCH_CAMPERS_FAILURE":
+//       return { ...state, isLoading: false };
+//     default:
+//       return state;
+//   }
+// };
+export const camperReducer = campersSlice.reducer;

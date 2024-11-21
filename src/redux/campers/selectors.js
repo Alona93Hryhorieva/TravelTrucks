@@ -1,26 +1,12 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { selectFilters } from "../filter/selectors";
+export const selectCampers = (state) => {
+  console.log("State campers:", state.campers); // Перевірка стану
+  return state.campers ? state.campers.campers : []; // Перевірка на існування
+};
 
-import { createSelector } from "reselect";
-import { selectFilters } from "../filter/selectors";
+export const selectCamper = (state) => state.campers.camper;
 
-export const selectCampers = (state) => state.campers.campers;
-
-export const selectFilteredCampers = createSelector(
-  [selectCampers, selectFilters],
-  (campers, filters) => {
-    return campers.filter((camper) => {
-      const matchesLocation = filters.location
-        ? camper.location.includes(filters.location)
-        : true;
-      const matchesVehicleType = filters.vehicleType
-        ? camper.vehicleType === filters.vehicleType
-        : true;
-      const matchesEquipment = Object.entries(filters.equipment).every(
-        ([key, value]) => !value || camper.equipment[key] === value
-      );
-
-      return matchesLocation && matchesVehicleType && matchesEquipment;
-    });
-  }
-);
+export const selectLoading = (state) => {
+  console.log("Loading state:", state.campers.isLoading); // Перевірка
+  return state.campers.isLoading;
+};
+export const selectError = (state) => state.campers.error;

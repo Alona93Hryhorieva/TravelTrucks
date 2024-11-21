@@ -1,35 +1,41 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-hot-toast";
 
-// Встановлення базового URL для axios з `/campers`
-axios.defaults.baseURL = "https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers";
+// Встановлення базового URL для axios
+axios.defaults.baseURL = "https://66b1f8e71ca8ad33d4f5f63e.mockapi.io";
 
-// Отримати список кемперів
+// Функція для отримання списку кемперів
 export const getCampers = createAsyncThunk(
   "catalog/getCampers",
-  async (_, thunkAPI) => {
+  async (filters, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/");
-      toast.success("Camper list successfully loaded!");
-      return response.data;
+      const response = await axios.get("/campers");
+      // console.log("Response data:", response.data);
+
+      if (!Array.isArray(response.data.items)) {
+        // console.log("Data format:", typeof response.data, response.data);
+        throw new Error("Invalid data format");
+      }
+      return response.data.items; //
     } catch (error) {
-      toast.error("Failed to load camper list. Please try again!");
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-// Отримати деталі окремого кемпера за його ID
 export const getCamperById = createAsyncThunk(
   "catalog/getCamperById",
-  async (camperId, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
-      const response = await axios.get(`/${camperId}`);
-      toast.success("Camper details successfully loaded!");
+      const response = await axios.get(`/campers/${id}`);
+      // console.log("Response data:", response.data);
+      if (typeof response.data !== "object" || response.data === null) {
+        // console.log("Data format:", typeof response.data, response.data);
+        throw new Error("Invalid data format");
+      }
+      // console.log("Response data:", response.data);
       return response.data;
     } catch (error) {
-      toast.error("Failed to load camper details. Please try again!");
       return thunkAPI.rejectWithValue(error.message);
     }
   }

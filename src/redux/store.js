@@ -1,8 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import storage from "redux-persist/lib/storage";
 import {
   persistStore,
-  // persistReducer,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -10,21 +9,29 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { camperReducer } from "./campers/slice.js";
+import { filtersReducer } from "./filters/slice.js";
+import { favouritesReducer } from "./favourites/slice.js";
 
-import campersReducer from "./campers/slice.js";
-import filtersReducer from "./filters/slice.js";
+// Конфігурація для збереження фільтрів
+const filtersPersistConfig = {
+  key: "filters",
+  storage,
+  whitelist: ["features", "form", "location"], // Обираємо тільки поля для збереження
+};
 
-// const authPersistConfig = {
-//   key: "auth",
-//   storage,
-//   whitelist: ["token"],
-// };
+// Конфігурація для збереження улюблених
+const favouritesPersistConfig = {
+  key: "favourites",
+  storage,
+};
 
 export const store = configureStore({
   reducer: {
-    // auth: persistReducer(authPersistConfig),
-    campers: campersReducer,
-    filters: filtersReducer,
+    campers: camperReducer,
+    filters: persistReducer(filtersPersistConfig, filtersReducer),
+    favourites: persistReducer(favouritesPersistConfig, favouritesReducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

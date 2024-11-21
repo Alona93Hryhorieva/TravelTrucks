@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import css from "../HeaderLogo/HeaderLogo.module.css";
-import logo from "../../image/Logo-min.png";
-import logo2x from "../../image/Logo@2x-min.png";
+import logo from "../../assets/images/Logo-min.png";
+import logo2x from "../../../src/assets/images/Logo@2x-min.png";
 
 export default function HeaderLogo() {
   return (

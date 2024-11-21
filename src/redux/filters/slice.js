@@ -1,38 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  location: "",
-  vehicleType: [],
-  vehicleEquipment: [],
+  campers: [],
+  camper: {
+    name: "",
+    rating: 0,
+    reviews: [],
+    location: "",
+    price: 0,
+    gallery: [],
+    description: "",
+  },
+  isLoading: false,
+  error: null,
+  filters: {
+    features: [],
+    form: "",
+    location: "",
+  },
+  favourites: [],
 };
 
 const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setLocation: (state, action) => {
-      state.location = action.payload;
-    },
-    setVehicleType: (state, action) => {
-      state.vehicleType = action.payload;
-    },
-    setVehicleEquipment: (state, action) => {
-      state.vehicleEquipment = action.payload;
-    },
+    setFilter: (state, action) => {
+      const { location, form, features } = action.payload;
 
-    resetFilters: (state) => {
-      state.location = "";
-      state.vehicleType = [];
-      state.vehicleEquipment = [];
+      // Перевірка та присвоєння значень лише тоді, коли вони є в payload
+      if (location) state.filters.location = location;
+      if (form) state.filters.form = form;
+      if (features) state.filters.features = features;
     },
   },
 });
 
-export const {
-  setLocation,
-  setVehicleType,
-  setVehicleEquipment,
-  resetFilters,
-} = filtersSlice.actions;
+export const { setFilter } = filtersSlice.actions;
 
 export const filtersReducer = filtersSlice.reducer;
